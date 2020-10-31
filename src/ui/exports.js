@@ -104,6 +104,7 @@ function initExports(revision, mostRecentStats, obsIsAnyOverlayShowing) {
             } catch (_) {
                 jsonTextElement.innerText = jsonText;
             }
+            const wrelksparse=jsonText;
         });
     })();
 

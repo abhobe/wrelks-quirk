@@ -125,6 +125,7 @@ document.DEFAULT_CIRCUIT = undefined;
         <p id = "matrix"></p>
         <p id = "loop"></p>
         <script>
+        import {wrelksparse} from "../src/ui/exports.js"
         // Define Matrices
         var hmatrix = "\\frac{1}{\\sqrt{2}}\\begin{bmatrix} 1 & 1 \\\\ 1 & -1\\end{bmatrix}";
         var xmatrix = "\\begin{bmatrix} 0 & -i \\\\ i & 0\\end{bmatrix}";
@@ -139,6 +140,7 @@ document.DEFAULT_CIRCUIT = undefined;
         // Render with MathJax
         document.getElementById("matrix").innerHTML = order;
         document.getElementById("label").innerHTML = label;
+        console.log(wrelksparse)
       </script>
     </body>
 </html>
