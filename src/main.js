@@ -93,27 +93,37 @@ var xmatrix = " \\begin{bmatrix} 0 & 1 \\\\ 1 & 0\\end{bmatrix}";
 var zmatrix = " \\begin{bmatrix} 1 & 0 \\\\ 0 & -1\\end{bmatrix}";
 var wrelksparse = null;
 function convt(inp) {
-  // const canvasDiv = document.getElementById("canvasDiv");
-  let list = '$$'
+  let list = '$$\\begin{pmatrix} 1 \\\\ 0\\end{pmatrix}\\times'
+  let label = '$$|0\\rangle\\times '
   let {cols} = JSON.parse(inp)
-  console.log(cols);
+
   if (document.readyState === 'complete'){
     for (let i=0;i<Object.keys(cols).length;i++) {
       if (String(cols[i]) === 'H'){
         list = list + hmatrix
+        label=label+'H'
       }
       if (String(cols[i]) === 'X'){
         list = list + xmatrix
+        label=label+'X'
       }
       if (String(cols[i]) === 'Z'){
         list = list + zmatrix
+        label=label+'Z'
       }
       if (String(cols[i]) === 'Y'){
         list = list + ymatrix
+        label=label+'Y'
+      }
+      if (i<(Object.keys(cols).length-1)){
+        list = list+'\\times '
+        label = label+'\\times '
       }
     }
     list=list+'$$'
+    label = label +'$$'
     document.getElementById("matrix").innerHTML = list;
+    document.getElementById("label").innerHTML = label;
   }
   wrelksparse = inp;
 }
