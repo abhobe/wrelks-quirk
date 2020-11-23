@@ -121,26 +121,26 @@ document.DEFAULT_CIRCUIT = undefined;
 <!-- INCLUDE SOURCE PART -->
 
         </script>
+        <script>
+        function mathtest() {
+
+          MathJax.typeset()
+        }
+        </script>
+        <button type="button" onclick="mathtest()">Render.</button>
         <p id = "label"></p>
         <p id = "matrix"></p>
         <p id = "loop"></p>
-        <script>
-        import {wrelksparse} from "../src/ui/exports.js"
-        // Define Matrices
-        var hmatrix = "\\frac{1}{\\sqrt{2}}\\begin{bmatrix} 1 & 1 \\\\ 1 & -1\\end{bmatrix}";
-        var xmatrix = "\\begin{bmatrix} 0 & -i \\\\ i & 0\\end{bmatrix}";
-        var ymatrix = "\\begin{bmatrix} 0 & 1 \\\\ 1 & 0\\end{bmatrix}";
-        var zmatrix = "\\begin{bmatrix} 1 & 0 \\\\ 0 & -1\\end{bmatrix}";
+        <div>
+          <script>
 
-        // Labels and Orders of Operations
-        var order = "$$"+hmatrix+"\\times"+xmatrix+"\\times"+ymatrix+"\\times"+zmatrix+"$$";
-        var label = "hmatrix \\times xmatrix";
+          // Define Matrices
+          var label = "$$H \\times X \\times Y \\times Z$$";
 
-
-        // Render with MathJax
-        document.getElementById("matrix").innerHTML = order;
-        document.getElementById("label").innerHTML = label;
-        console.log(wrelksparse)
-      </script>
+          // Render with MathJax
+          //document.getElementById("matrix").innerHTML = order;
+          //document.getElementById("label").innerHTML = label;
+        </script>
+      </div>
     </body>
 </html>

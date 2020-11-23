@@ -45,6 +45,7 @@ import {GatePainting} from "src/draw/GatePainting.js"
 import {GATE_CIRCUIT_DRAWER} from "src/ui/DisplayedCircuit.js"
 import {GateColumn} from "src/circuit/GateColumn.js";
 import {Point} from "src/math/Point.js";
+import {Serializer} from "src/circuit/Serializer.js"
 initSerializer(
     GatePainting.LABEL_DRAWER,
     GatePainting.MATRIX_DRAWER,
@@ -86,9 +87,42 @@ const mostRecentStats = new ObservableValue(CircuitStats.EMPTY);
 /** @type {!Revision} */
 let revision = Revision.startingAt(displayed.get().snapshot());
 
+var hmatrix = " \\frac{1}{\\sqrt{2}}\\begin{bmatrix} 1 & 1 \\\\ 1 & -1\\end{bmatrix}";
+var ymatrix = " \\begin{bmatrix} 0 & -i \\\\ i & 0\\end{bmatrix}";
+var xmatrix = " \\begin{bmatrix} 0 & 1 \\\\ 1 & 0\\end{bmatrix}";
+var zmatrix = " \\begin{bmatrix} 1 & 0 \\\\ 0 & -1\\end{bmatrix}";
+var wrelksparse = null;
+function convt(inp) {
+  // const canvasDiv = document.getElementById("canvasDiv");
+  let list = '$$'
+  let {cols} = JSON.parse(inp)
+  console.log(cols);
+  if (document.readyState === 'complete'){
+    for (let i=0;i<Object.keys(cols).length;i++) {
+      if (String(cols[i]) === 'H'){
+        list = list + hmatrix
+      }
+      if (String(cols[i]) === 'X'){
+        list = list + xmatrix
+      }
+      if (String(cols[i]) === 'Z'){
+        list = list + zmatrix
+      }
+      if (String(cols[i]) === 'Y'){
+        list = list + ymatrix
+      }
+    }
+    list=list+'$$'
+    document.getElementById("matrix").innerHTML = list;
+  }
+  wrelksparse = inp;
+}
+
 revision.latestActiveCommit().subscribe(jsonText => {
     let circuitDef = fromJsonText_CircuitDefinition(jsonText);
     let newInspector = displayed.get().withCircuitDefinition(circuitDef);
+    let jsonInpText = JSON.stringify(Serializer.toJson(circuitDef));
+    convt(jsonInpText);
     displayed.set(newInspector);
 });
 
@@ -322,7 +356,7 @@ setTimeout(() => {
     try {
         initializedWglContext().onContextRestored = () => redrawThrottle.trigger();
     } catch (ex) {
-        // If that failed, the user is already getting warnings about WebGL not being supported.
+        // If that faxiled, the user is already getting warnings about WebGL not being supported.
         // Just silently log it.
         console.error(ex);
     }
