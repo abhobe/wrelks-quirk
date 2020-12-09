@@ -97,27 +97,26 @@ function convt(inp) {
   let label = '$$|0\\rangle\\times '
   let {cols} = JSON.parse(inp)
 
+  let gateDict = {
+    'H': hmatrix,
+    'X': xmatrix,
+    'Y': ymatrix,
+    'Z': zmatrix
+  };
+
   if (document.readyState === 'complete'){
     for (let i=0;i<Object.keys(cols).length;i++) {
-      if (String(cols[i]) === 'H'){
-        list = list + hmatrix
-        label=label+'H'
+      let key = String(cols[i]);
+      if (gateDict.hasOwnProperty(key)) {
+        if (i!=0){
+          list = list+' \\times '
+          label = label+' \\times '
+        }
+        list = list + gateDict[key];
+        label=label+key;
       }
-      if (String(cols[i]) === 'X'){
-        list = list + xmatrix
-        label=label+'X'
-      }
-      if (String(cols[i]) === 'Z'){
-        list = list + zmatrix
-        label=label+'Z'
-      }
-      if (String(cols[i]) === 'Y'){
-        list = list + ymatrix
-        label=label+'Y'
-      }
-      if (i<(Object.keys(cols).length-1)){
-        list = list+'\\times '
-        label = label+'\\times '
+      else {
+        console.warn(cols[i]+' is not a supported gate.')
       }
     }
     list=list+'$$'
