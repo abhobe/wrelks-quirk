@@ -87,14 +87,14 @@ const mostRecentStats = new ObservableValue(CircuitStats.EMPTY);
 /** @type {!Revision} */
 let revision = Revision.startingAt(displayed.get().snapshot());
 
-var hmatrix = " \\frac{1}{\\sqrt{2}}\\begin{bmatrix} 1 & 1 \\\\ 1 & -1\\end{bmatrix}";
-var ymatrix = " \\begin{bmatrix} 0 & -i \\\\ i & 0\\end{bmatrix}";
-var xmatrix = " \\begin{bmatrix} 0 & 1 \\\\ 1 & 0\\end{bmatrix}";
-var zmatrix = " \\begin{bmatrix} 1 & 0 \\\\ 0 & -1\\end{bmatrix}";
+var hmatrix = "\\frac{1}{\\sqrt{2}}\\begin{bmatrix} 1 & 1 \\\\ 1 & -1\\end{bmatrix}";
+var ymatrix = "\\begin{bmatrix} 0 & -i \\\\ i & 0\\end{bmatrix}";
+var xmatrix = "\\begin{bmatrix} 0 & 1 \\\\ 1 & 0\\end{bmatrix}";
+var zmatrix = "\\begin{bmatrix} 1 & 0 \\\\ 0 & -1\\end{bmatrix}";
 var wrelksparse = null;
 function convt(inp) {
-  let list = '$$\\begin{pmatrix} 1 \\\\ 0\\end{pmatrix}\\times'
-  let label = '$$|0\\rangle\\times '
+  let list = '\\times\\begin{pmatrix} 1 \\\\ 0\\end{pmatrix}$$'
+  let label = '\\times|0\\rangle$$'
   let {cols} = JSON.parse(inp)
 
   let gateDict = {
@@ -109,18 +109,19 @@ function convt(inp) {
       let key = String(cols[i]);
       if (gateDict.hasOwnProperty(key)) {
         if (i!=0){
-          list = list+' \\times '
-          label = label+' \\times '
+          list = ' \\times '+list
+          label =' \\times ' + label
         }
-        list = list + gateDict[key];
-        label=label+key;
+        list = gateDict[key]+list;
+        label=key+label;
       }
       else {
         console.warn(cols[i]+' is not a supported gate.')
       }
     }
-    list=list+'$$'
-    label = label +'$$'
+    list='$$'+list
+    label = '$$'+label
+    console.log(list)
     document.getElementById("matrix").innerHTML = list;
     document.getElementById("label").innerHTML = label;
   }
