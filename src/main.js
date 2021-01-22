@@ -119,9 +119,8 @@ function convt(inp) {
         console.warn(cols[i]+' is not a supported gate.')
       }
     }
-    list='$$'+list
-    label = '$$'+label
-    console.log(list)
+    list='$$'+list;
+    label = '$$'+label;
     document.getElementById("matrix").innerHTML = list;
     document.getElementById("label").innerHTML = label;
   }
