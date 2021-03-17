@@ -105,22 +105,22 @@ function convt(inp) {
   };
 
   if (document.readyState === 'complete'){
-    for (let i=0;i<Object.keys(cols).length;i++) {
+    for (let i = 0;i < Object.keys(cols).length; i++) {
       let key = String(cols[i]);
       if (gateDict.hasOwnProperty(key)) {
-        if (i!=0){
-          list = ' \\times '+list
+        if (i != 0){
+          list = ' \\times ' + list
           label =' \\times ' + label
         }
         list = gateDict[key]+list;
-        label=key+label;
+        label = key + label;
       }
       else {
-        console.warn(cols[i]+' is not a supported gate.')
+        console.warn(cols[i] + ' is not a supported gate.')
       }
     }
-    list='$$'+list;
-    label = '$$'+label;
+    list='$$' + list;
+    label = '$$' + label;
     document.getElementById("matrix").innerHTML = list;
     document.getElementById("label").innerHTML = label;
   }
