@@ -31,8 +31,7 @@
         }
 
         </style>
-        <script type="text/javascript" id="MathJax-script" async
-          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+        <script type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
         </script>
 
         <!-- Whatever is between these start/end analytic tags is stripped by the 'downloading offline copy' code. -->
@@ -146,9 +145,11 @@ document.DEFAULT_CIRCUIT = undefined;
 <!-- INCLUDE SOURCE PART -->
 
         </script>
-        <button type="button" onclick="MathJax.typeset()">Render Me!</button>
         <p id = "label"></p>
         <p id = "matrix"></p>
+        <script>
+        setInterval(function(){MathJax.typeset()}, 100);
+        </script>
         <div>
       </div>
     </body>
